@@ -37,7 +37,7 @@ namespace MyBlog.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             
-            #region SqlSugar IOC//自动释放
+            #region SqlSugar IOC//自动释放 1. 注册
             services.AddSqlSugar(new IocConfig()
             {
                 ConnectionString = this.Configuration["SqlConn"],
