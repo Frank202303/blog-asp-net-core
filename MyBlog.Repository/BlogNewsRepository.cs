@@ -13,7 +13,7 @@ namespace MyBlog.Repository
 {
     public class BlogNewsRepository : BaseRepository<BlogNews>, IBlogNewsRepository
     {
-        // The subclass must first inherit the parent class, and then inherit the sub-interface;
+        // The subclass must first inherit the parent class, and then implement the sub-interface;
         public async override Task<List<BlogNews>> QueryAsync()
         {
             // 这里的导航 查询，相当于 连接查询  

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyBlog.Repository
 {
-    // the subclass must first inherit the parent class, and then inherit the sub-interface;
+    // the subclass must first inherit the parent class, and then implement the sub-interface;
     public class WriterInfoRepository:BaseRepository<WriterInfo>, IWriterInfoRepository
     {
     }
