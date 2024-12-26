@@ -13,7 +13,7 @@ namespace MyBlog.Service
     public class BaseService<TEntity> : IBaseService<TEntity> where TEntity : class, new()
     {
         //  222. service layer：  class implement interface;
-        //从 子类的构造函数 中传入
+        //从 子类的构造函数 中传入， 通过接口_iBaseRepository 来访问方法
         protected IBaseRepository<TEntity> _iBaseRepository;
         public async Task<bool> CreateAsync(TEntity entity)
         {
