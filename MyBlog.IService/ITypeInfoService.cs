@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyBlog.IService
 {
+    // 定义 TypeInfo interface
     public interface ITypeInfoService: IBaseService<TypeInfo>
     {
     }

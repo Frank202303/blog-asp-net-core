@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyBlog.IService
 {
+    // 定义Service WriterInfo  interface
     public interface IWriterInfoService : IBaseService<WriterInfo>
     {
     }

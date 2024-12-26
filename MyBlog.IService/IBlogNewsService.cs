@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyBlog.IService
 {
+    // 定义 BlogNews interface
     public interface IBlogNewsService : IBaseService<BlogNews>
     {
     }
