@@ -10,6 +10,7 @@ namespace MyBlog.IService
 {
     public interface IBaseService<TEntity>where TEntity:class,new()
     {
+        // 111. service layer interface，similar with repo layer Interface
         //写 增删改查 
         Task<bool> CreateAsync(TEntity entity);
         Task<bool> DeleteAsync(int id);
