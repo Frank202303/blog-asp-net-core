@@ -48,7 +48,7 @@ namespace MyBlog.Repository
             return await base.UpdateAsync(entity);
         }
         /// <summary>
-        /// 导航 查询（virtual方法）
+        /// 导航 查询（virtual方法），子类想导航 查询时，重写这个方法
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

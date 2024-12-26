@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyBlog.IRepository
 {
+    // 接口 继承 父接口
     public interface IBlogNewsRepository:IBaseRepository<BlogNews>
     {
     }
