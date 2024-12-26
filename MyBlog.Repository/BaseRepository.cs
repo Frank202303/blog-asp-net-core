@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MyBlog.Repository
 {
-    //实现（IBaseRepository）： 继承时，类必须 放在 接口 前面
+    //实现父类（IBaseRepository）： 继承时，类必须 放在 接口 前面
     public class BaseRepository<TEntity> :SimpleClient<TEntity>, IBaseRepository<TEntity> where TEntity : class, new()
     {
         //使用sqlSugar的IOC   依赖注入
