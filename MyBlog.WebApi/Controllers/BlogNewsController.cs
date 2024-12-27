@@ -7,33 +7,30 @@ using System.Linq;
 using System.Threading.Tasks;
 using MyBlog.WebApi.Utility.ApiResult;
 using MyBlog.Model;
-using Microsoft.AspNetCore.Authorization;// 1引入  2  [Authorize]
+
 
 namespace MyBlog.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //2 使用
-    [Authorize]
+
     public class BlogNewsController : ControllerBase
     {
         private readonly IBlogNewsService _iBlogNewsService;
+        // 注入 服务层
         public BlogNewsController(IBlogNewsService iBlogNewsService)// 注入 服务
         {
            this._iBlogNewsService = iBlogNewsService;
         }
 
-        /// <summary>
-        /// 获取/读取 文章
-        /// </summary>
-        /// <returns></returns>
+   
         [HttpGet(template: "BlogNews")]// get 方法
         public async Task<ActionResult<ApiResult>> GetBlogNews()//
         {
-            int id = Convert.ToInt32(this.User.FindFirst("Id").Value);
-            var data = await _iBlogNewsService.QueryAsync(c=> c.WriterId==id);
-            if (data == null) return ApiResultHelper.Error(msg: "没有更多的文章");
-            return ApiResultHelper.Success(data);
+  
+            var data = await _iBlogNewsService.QueryAsync();
+         
+            return Ok(data);
         }
 
         /// <summary>
