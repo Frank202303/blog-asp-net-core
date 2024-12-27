@@ -114,9 +114,12 @@ namespace MyBlog.WebApi
     }
     public static class IOCExtend
     {
+        // 依赖注入
         public static IServiceCollection AddCustomIOC(this IServiceCollection services)
         {
+            // Repository 和 接口
             services.AddScoped<IBlogNewsRepository, BlogNewsRepository>();
+            // Service 和 接口
             services.AddScoped<IBlogNewsService, BlogNewsService>();
             services.AddScoped<ITypeInfoRepository, TypeInfoRepository>();
             services.AddScoped<ITypeInfoService, TypeInfoService>();

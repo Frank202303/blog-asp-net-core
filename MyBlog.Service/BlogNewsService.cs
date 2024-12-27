@@ -12,9 +12,11 @@ namespace MyBlog.Service
     // 定义3个 类：继承于BaseService类， 实现IBlogNewsService接口
     public class BlogNewsService : BaseService<BlogNews>, IBlogNewsService
     {
+        //子类 独有
         private readonly IBlogNewsRepository _iBlogNewsRepository; //子类 独有
         public BlogNewsService(IBlogNewsRepository iBlogNewsRepository)
         {
+            // 从子类的构造函数 传入 到 父类
             base._iBaseRepository = iBlogNewsRepository;
             _iBlogNewsRepository = iBlogNewsRepository;
         }
