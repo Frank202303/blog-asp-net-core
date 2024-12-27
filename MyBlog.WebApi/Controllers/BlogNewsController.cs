@@ -27,10 +27,12 @@ namespace MyBlog.WebApi.Controllers
         [HttpGet(template: "BlogNews")]// get 方法
         public async Task<ActionResult<ApiResult>> GetBlogNews()//
         {
-  
+            // 使用自定义的 ApiResult类
             var data = await _iBlogNewsService.QueryAsync();
-         
-            return Ok(data);
+            if(data == null) {
+                return ApiResultHelper.Error("没有更多的文章");
+            }
+            return ApiResultHelper.Success(data);
         }
 
         /// <summary>
