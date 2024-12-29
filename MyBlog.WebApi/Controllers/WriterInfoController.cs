@@ -53,7 +53,7 @@ namespace MyBlog.WebApi.Controllers
                  Name=name,
                  UserName=username,
                  // MD5 加密
-                 UserPwd=MD5Helper.MD5Encrypt32(userpwd)  
+                 UserPwd = MD5Helper.MD5Encrypt32(userpwd)  
             };
             //判断 数据库中是否已经存在 要添加的账号
             var oldWriter =await  _iWriterInfoService.FindAsync(c => c.UserName == username);

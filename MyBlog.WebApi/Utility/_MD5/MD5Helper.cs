@@ -12,6 +12,7 @@ namespace MyBlog.WebApi.Utility._MD5
     {
         public static string MD5Encrypt32(string password)
         {
+            // MD5 加密
             string pwd = "";
             MD5 md5 = MD5.Create();//  实例化 一个 md5对象
             byte[] s = md5.ComputeHash(Encoding.UTF8.GetBytes(password));
