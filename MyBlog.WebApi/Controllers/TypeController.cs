@@ -7,13 +7,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using MyBlog.WebApi.Utility.ApiResult;
 using MyBlog.Model;
-using Microsoft.AspNetCore.Authorization;// 1引入  2  [Authorize]
+//using Microsoft.AspNetCore.Authorization;// 1引入  2  [Authorize]
 
 namespace MyBlog.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+
     public class TypeController : ControllerBase
     {
         private readonly ITypeInfoService _iTypeInfoService;
