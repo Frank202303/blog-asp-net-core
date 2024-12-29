@@ -34,7 +34,7 @@ namespace MyBlog.Service
         {
             return await _iBaseRepository.FindAsync(id);
         }
-        ////整一个自定义的,实现
+        ////整一个自定义的,实现，使用场景：查找单个
         public async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> func)
         {
             return await  _iBaseRepository.FindAsync(func);
