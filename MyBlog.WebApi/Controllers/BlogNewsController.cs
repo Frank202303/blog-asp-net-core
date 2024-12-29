@@ -23,7 +23,8 @@ namespace MyBlog.WebApi.Controllers
            this._iBlogNewsService = iBlogNewsService;
         }
 
-   
+
+        // ApiResultHelper.Success 是ApiResult 类型
         [HttpGet(template: "BlogNews")]// get 方法
         public async Task<ActionResult<ApiResult>> GetBlogNews()//
         {
