@@ -52,8 +52,8 @@ namespace MyBlog.JWT.Controllers
                 };
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SDMC-CJAS1-SAD-DFSFA-SADHJVF-VF"));// 密钥 最少16位
                 //issuer 代表 颁发 Token的 web 应用程序，audience 是Token的受理者
-                // 6060 在 launchSettings.json里设置
-                // 5000 在 MyBlog.WebApi的 launchSettings.json里设置
+                // 6060 在 launchSettings.json里设置， 谁颁发的token
+                // 5000 在 MyBlog.WebApi的 launchSettings.json里设置 
                 var token = new JwtSecurityToken(
                     issuer:"http://localhost:6060",
                     audience: "http://localhost:5000",
@@ -65,6 +65,7 @@ namespace MyBlog.JWT.Controllers
                 var jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
                 //  结束 copy 代码
 
+                // 以后前端访问数据时要带上这个 Token
                 return ApiResultHelper.Success(jwtToken);// 返回 Token 值
             }
             else
