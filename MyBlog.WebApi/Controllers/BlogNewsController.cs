@@ -23,7 +23,7 @@ namespace MyBlog.WebApi.Controllers
            this._iBlogNewsService = iBlogNewsService;
         }
 
-
+        // 查询  文章
         // ApiResultHelper.Success 是ApiResult 类型
         [HttpGet(template: "BlogNews")]// get 方法
         public async Task<ActionResult<ApiResult>> GetBlogNews()//
@@ -37,7 +37,7 @@ namespace MyBlog.WebApi.Controllers
         }
 
         /// <summary>
-        /// 添加 文章
+        /// 添加  文章
         /// </summary>
         /// <returns></returns>
         [HttpPost(template:"Create")]//  post 方法
@@ -53,14 +53,16 @@ namespace MyBlog.WebApi.Controllers
                 Time=DateTime.Now,
                 Title=title,
                 TypeId=typeid,
-                WriterId= Convert.ToInt32(this.User.FindFirst("Id").Value)
+                WriterId= 1
+                // when use auth
+                //WriterId = Convert.ToInt32(this.User.FindFirst("Id").Value)
             };
             bool b = await _iBlogNewsService.CreateAsync(blogNews);
             if (!b) return ApiResultHelper.Error(msg: "文章添加失败，服务器发生错误");
             return ApiResultHelper.Success(blogNews);
         }
         /// <summary>
-        /// 删除 文章
+        /// 删除  文章
         /// </summary>
         /// <returns></returns>
         [HttpDelete(template: "Delete")]//  post 方法
@@ -76,7 +78,7 @@ namespace MyBlog.WebApi.Controllers
 
 
         /// <summary>
-        /// 修改 文章
+        /// 修改  文章：Put
         /// </summary>
         /// <returns></returns>
         [HttpPut(template: "Edit")]//  post 方法
@@ -86,7 +88,9 @@ namespace MyBlog.WebApi.Controllers
             // 如果 数据 合格
             //第一步 找到文章
             var blogNews = await _iBlogNewsService.FindAsync(id);
-            if(blogNews==null) return ApiResultHelper.Error(msg: "没有找到文章");
+            if(blogNews==null) 
+                return ApiResultHelper.Error(msg: "没有找到文章");
+            
             //第2步 修改文章
             blogNews.Title= title;
             blogNews.Content =content;
