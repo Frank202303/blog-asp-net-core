@@ -57,7 +57,7 @@ namespace MyBlog.Repository
             // 增删改查：查
             return await base.GetByIdAsync(id);
         }
-        ////整一个自定义的
+        ////整一个自定义的， 使用场景：查找 单个
         public async Task<TEntity>  FindAsync(Expression<Func<TEntity, bool>> func)
         {
             return await base.GetSingleAsync(func);

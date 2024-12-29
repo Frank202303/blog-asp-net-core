@@ -9,7 +9,7 @@ using MyBlog.WebApi.Utility.ApiResult;
 // 手动 引入
 using MyBlog.WebApi.Utility._MD5;
 using MyBlog.Model;
-using Microsoft.AspNetCore.Authorization;// 1引入  2  [Authorize]
+//using Microsoft.AspNetCore.Authorization;// 1引入  2  [Authorize]
 using AutoMapper;
 using MyBlog.Model.DTO;
 
@@ -17,18 +17,19 @@ namespace MyBlog.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class WriterInfoController  : ControllerBase
     {
         private readonly IWriterInfoService _iWriterInfoService;
-       public WriterInfoController(IWriterInfoService iWriterInfoService)
+        // 依赖注入 Service
+        public WriterInfoController(IWriterInfoService iWriterInfoService)
         {
             this._iWriterInfoService = iWriterInfoService;
         }
         /// <summary>
         /// GET方法
         /// </summary>
-        /// <returns></returns>
+        /// <returns></returns> 
         [HttpGet("Types")]
         public async Task<ApiResult> Types()
         {
@@ -38,10 +39,8 @@ namespace MyBlog.WebApi.Controllers
         }
 
 
-
-
         /// <summary>
-        /// 插入  
+        /// 插入  Create
         /// </summary>
         /// <returns></returns>
         [HttpPost("Create")]
@@ -54,14 +53,16 @@ namespace MyBlog.WebApi.Controllers
                  Name=name,
                  UserName=username,
                  // MD5 加密
-                 UserPwd=MD5Helper.MD5Encrypt32(userpwd)  
+                 UserPwd = MD5Helper.MD5Encrypt32(userpwd)  
             };
             //判断 数据库中是否已经存在 要添加的账号
             var oldWriter =await  _iWriterInfoService.FindAsync(c => c.UserName == username);
-            if(oldWriter!=null) return ApiResultHelper.Error(msg: "账号已经存在");
+            if(oldWriter!=null) 
+                return ApiResultHelper.Error(msg: "账号已经存在");
 
             bool b = await _iWriterInfoService.CreateAsync(writer);
-            if (!b) return ApiResultHelper.Error(msg: "添加失败");
+            if (!b) 
+                return ApiResultHelper.Error(msg: "添加作者失败");
 
             return ApiResultHelper.Success(writer);
         }
@@ -78,12 +79,14 @@ namespace MyBlog.WebApi.Controllers
         //   if (!b) return apiresulthelper.error(msg: "删除失败");
         //   return apiresulthelper.success(b);
         //}
+
+
         /// <summary>
         ///  修改 名字  
         /// </summary>
         /// <returns></returns>
         [HttpPut("Edit")]
-        public async Task<ApiResult> Edit(  string name)// 需要 JWT
+        public async Task<ApiResult> Edit(  string name)// 需要 JWT实现后，才能 测试
         {
 
             int id = Convert.ToInt32(this.User.FindFirst("Id").Value);// JWT必须有id， 此处 才能 得到Id
@@ -92,10 +95,11 @@ namespace MyBlog.WebApi.Controllers
             // 再写回 数据库 
             bool b = await _iWriterInfoService.EditAsync(writer);
            
-            if (!b) return ApiResultHelper.Error("修改失败");
-            return ApiResultHelper.Success("修改成功");
+            if (!b) 
+                return ApiResultHelper.Error("用户名修改失败");
+            return ApiResultHelper.Success("用户名修改成功");
         }
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpGet("FindWriter")]
         public async Task<ApiResult> FindWriter([FromServices]IMapper iMapper ,int id)// 调用方法 时注入 进来
         {
