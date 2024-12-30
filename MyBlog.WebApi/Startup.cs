@@ -60,12 +60,13 @@ namespace MyBlog.WebApi
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyBlog.WebApi", Version = "v1" });
-                #region   swagger使用  鉴权 组件
+
+                #region   swagger使用  鉴权 组件：Swagger想要使用鉴权，需要注册服务的时候添加以下代码
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
-                    Description = "Ö±½ÓÔÚÏÂ¿òÖÐÊäÈëBearer {token}£¨×¢ÒâÁ½ÕßÖ®¼äÊÇÒ»¸ö¿Õ¸ñ£©",
+                    Description = "直接在下框中输入Bearer {token} (注意：两者之间是一个空格)",
                     Name = "Authorization",
                     BearerFormat = "JWT",
                     Scheme = "Bearer"
@@ -85,6 +86,7 @@ namespace MyBlog.WebApi
                  }
                 });
                 #endregion
+
             });
             #region    autoMapper
             services.AddAutoMapper(typeof(CustomAutoMapperProfile));
