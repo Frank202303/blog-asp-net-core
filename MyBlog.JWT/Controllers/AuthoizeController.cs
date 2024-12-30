@@ -47,7 +47,7 @@ namespace MyBlog.JWT.Controllers
                     // 3个键值对   key：value
                     // 不能 放 敏感 信息
                     new Claim(ClaimTypes.Name,writer.Name), //相当于 身份证
-                    new Claim("Id",writer.Id.ToString()),
+                    new Claim("Id",writer.Id.ToString()),// 在这里添加Id
                      new Claim("UserName",writer.UserName)
                 };
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SDMC-CJAS1-SAD-DFSFA-SADHJVF-VF"));// 密钥 最少16位

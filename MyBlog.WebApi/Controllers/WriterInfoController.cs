@@ -88,7 +88,7 @@ namespace MyBlog.WebApi.Controllers
         [HttpPut("Edit")]
         public async Task<ApiResult> Edit(  string name)// 需要 JWT实现后，才能 测试
         {
-
+            // 在这里 获取Id
             int id = Convert.ToInt32(this.User.FindFirst("Id").Value);// JWT必须有id， 此处 才能 得到Id
             var writer = await _iWriterInfoService.FindAsync(id);
             writer.Name = name;
