@@ -9,7 +9,7 @@ using MyBlog.WebApi.Utility.ApiResult;
 // 手动 引入
 using MyBlog.WebApi.Utility._MD5;
 using MyBlog.Model;
-//using Microsoft.AspNetCore.Authorization;// 1引入  2  [Authorize]
+using Microsoft.AspNetCore.Authorization;// 1引入  2  [Authorize]
 using AutoMapper;
 using MyBlog.Model.DTO;
 
@@ -17,7 +17,7 @@ namespace MyBlog.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class WriterInfoController  : ControllerBase
     {
         private readonly IWriterInfoService _iWriterInfoService;

@@ -7,13 +7,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using MyBlog.WebApi.Utility.ApiResult;
 using MyBlog.Model;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace MyBlog.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
+    [Authorize]
     public class BlogNewsController : ControllerBase
     {
         private readonly IBlogNewsService _iBlogNewsService;
