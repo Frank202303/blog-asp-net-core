@@ -52,7 +52,7 @@ namespace MyBlog.WebApi
             #endregion
 
 
-            #region  JWT 鉴权
+            #region  02- JWT 鉴权
             services.AddCustomJWT();
             #endregion
 
@@ -60,12 +60,13 @@ namespace MyBlog.WebApi
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyBlog.WebApi", Version = "v1" });
-                #region   swagger使用  鉴权 组件
+
+                #region   swagger使用  鉴权 组件：Swagger想要使用鉴权，需要注册服务的时候添加以下代码
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
-                    Description = "Ö±½ÓÔÚÏÂ¿òÖÐÊäÈëBearer {token}£¨×¢ÒâÁ½ÕßÖ®¼äÊÇÒ»¸ö¿Õ¸ñ£©",
+                    Description = "直接在下框中输入Bearer {token} (注意：两者之间是一个空格)",
                     Name = "Authorization",
                     BearerFormat = "JWT",
                     Scheme = "Bearer"
@@ -85,6 +86,7 @@ namespace MyBlog.WebApi
                  }
                 });
                 #endregion
+
             });
             #region    autoMapper
             services.AddAutoMapper(typeof(CustomAutoMapperProfile));
@@ -103,7 +105,9 @@ namespace MyBlog.WebApi
 
             app.UseRouting();
             // 添加到 管道中
+            // 01-在 webApi项目里 鉴权：Authentica，UseAuthentication：用户认证
             app.UseAuthentication();// 鉴权
+
             app.UseAuthorization();//授权
 
             app.UseEndpoints(endpoints =>
@@ -129,13 +133,14 @@ namespace MyBlog.WebApi
         }
         public static IServiceCollection AddCustomJWT(this IServiceCollection services)
         {
+            // 自定义 方法：代码模块化
              services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
               options.TokenValidationParameters = new TokenValidationParameters
               {
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SDMC-CJAS1-SAD-DFSFA-SADHJVF-VF")),// 密钥
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SDMC-CJAS1-SAD-DFSFA-SADHJVF-VF")),// 密钥， 必须与JWT项目里相同
                 ValidateIssuer = true,
                 ValidIssuer = "http://localhost:6060", //JWT 服务器
                 ValidateAudience = true,

@@ -37,7 +37,7 @@ namespace MyBlog.JWT
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyBlog.JWT", Version = "v1" });
             });
 
-
+            // 注入 SqlSugar
             #region SqlSugar IOC//自动释放
             services.AddSqlSugar(new IocConfig()
             {
@@ -47,7 +47,7 @@ namespace MyBlog.JWT
             });
             #endregion
 
-
+            // 依赖注入（在自己项目： MyBlog.JWT的Startup.cs 文件里）
             services.AddScoped<IWriterInfoRepository, WriterInfoRepository>();
             services.AddScoped<IWriterInfoService, WriterInfoService>();
         }
