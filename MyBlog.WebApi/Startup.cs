@@ -88,7 +88,7 @@ namespace MyBlog.WebApi
                 #endregion
 
             });
-            #region    autoMapper
+            #region  4. 服务注册 autoMapper
             services.AddAutoMapper(typeof(CustomAutoMapperProfile));
             #endregion
         }
