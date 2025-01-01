@@ -64,7 +64,7 @@ namespace MyBlog.Repository
         }
 
         /// <summary>
-        /// 
+        /// 1. 因为这是 virtual 方法
         /// </summary>
         /// <returns></returns>
 
