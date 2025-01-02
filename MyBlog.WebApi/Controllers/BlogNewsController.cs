@@ -29,8 +29,14 @@ namespace MyBlog.WebApi.Controllers
         public async Task<ActionResult<ApiResult>> GetBlogNews()//
         {
             // 使用自定义的 ApiResult类
-            var data = await _iBlogNewsService.QueryAsync();
-            if(data == null) {
+
+            // 查询 所有blog
+            // var data = await _iBlogNewsService.QueryAsync();
+
+            // 查询 当前作者的 blog
+            int id = Convert.ToInt32(this.User.FindFirst("Id").Value);
+            var data = await _iBlogNewsService.QueryAsync(c => c.WriterId == id);
+            if (data == null) {
                 return ApiResultHelper.Error("没有更多的文章");
             }
             return ApiResultHelper.Success(data);
@@ -53,7 +59,7 @@ namespace MyBlog.WebApi.Controllers
                 Time=DateTime.Now,
                 Title=title,
                 TypeId=typeid,
-                WriterId= 1
+                WriterId = Convert.ToInt32(this.User.FindFirst("Id").Value)
                 // when use auth
                 //WriterId = Convert.ToInt32(this.User.FindFirst("Id").Value)
             };

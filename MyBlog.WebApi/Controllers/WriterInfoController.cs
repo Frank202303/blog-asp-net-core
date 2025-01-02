@@ -99,13 +99,22 @@ namespace MyBlog.WebApi.Controllers
                 return ApiResultHelper.Error("用户名修改失败");
             return ApiResultHelper.Success("用户名修改成功");
         }
+
+        // 使用 id 查找一个 用户
         //[AllowAnonymous]
         [HttpGet("FindWriter")]
-        public async Task<ApiResult> FindWriter([FromServices]IMapper iMapper ,int id)// 调用方法 时注入 进来
+        public async Task<ApiResult> FindWriter([FromServices]IMapper iMapper ,int id)// 调用方法 时：才注入 进来
         {
             var writer = await _iWriterInfoService.FindAsync(id);
-            var writerDTO = iMapper.Map<WriterDTO>(writer);//p  < 想要映射的DTO >  (放 原数据 )  相当于 过滤
-            return ApiResultHelper.Success(writer); //   不yong AutoMapper时  //使用 AutoMapper时 
+
+            //p  < 想要映射的DTO >  (放 原数据 )  相当于 过滤， 把writer 映射成 WriterDTO 类型
+            var writerDTO = iMapper.Map<WriterDTO>(writer);
+
+            //   不yong AutoMapper时， 把 密码也发给前端了  
+            //return ApiResultHelper.Success(writer); 
+
+            //使用 AutoMapper时 
+            return ApiResultHelper.Success(writerDTO);
         }
     }
 }
