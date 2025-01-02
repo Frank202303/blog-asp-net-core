@@ -35,5 +35,26 @@ namespace MyBlog.Repository
               .Mapper(c => c.WriterInfo, c => c.WriterId, c => c.WriterInfo.Id)
               .ToListAsync();
         }
+        // 03 重写 虚方法 public virtual async Task<List<TEntity>> QueryAsync(int page, int size, RefAsync<int> total)
+        public async override Task<List<BlogNews>> QueryAsync(int page, int size, RefAsync<int> total)
+        {
+            return await base.Context.Queryable<BlogNews>()
+              // 加映射
+              .Mapper(c => c.TypeInfo, c => c.TypeId, c => c.TypeInfo.Id)
+              .Mapper(c => c.WriterInfo, c => c.WriterId, c => c.WriterInfo.Id)
+              .ToPageListAsync(page,size,total);
+        }
+
+        // 03 重写 虚方法: 带自定义查询条件
+        public async override Task<List<BlogNews>> QueryAsync(Expression<Func<BlogNews, bool>> func, int page, int size, RefAsync<int> total)
+        {
+            return await base.Context.Queryable<BlogNews>()
+                .Where(func)
+                // 加映射
+                .Mapper(c => c.TypeInfo, c => c.TypeId, c => c.TypeInfo.Id)
+                .Mapper(c => c.WriterInfo, c => c.WriterId, c => c.WriterInfo.Id)
+                .ToPageListAsync(page, size, total);
+
+        }
     }
 }

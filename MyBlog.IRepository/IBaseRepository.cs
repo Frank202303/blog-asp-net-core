@@ -33,7 +33,7 @@ namespace MyBlog.IRepository
         /// <returns></returns>
         Task<List<TEntity>> QueryAsync(Expression<Func<TEntity,bool>> func);
         /// <summary>
-        /// 分页 查询
+        /// 分页 查询 01 定义
         /// </summary>
         /// <param name="page"></param>
         /// <param name="size"></param>

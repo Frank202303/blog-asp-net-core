@@ -82,9 +82,9 @@ namespace MyBlog.Repository
 
         public virtual async Task<List<TEntity>> QueryAsync(int page, int size, RefAsync<int> total)
         {
-            //   分页
+            //   分页： 02 实现
             return await base.Context.Queryable<TEntity>()
-                .ToPageListAsync(page,size,total);
+                .ToPageListAsync(page, size, total);
         }
 
         public virtual async Task<List<TEntity>> QueryAsync(Expression<Func<TEntity, bool>> func, int page, int size, RefAsync<int> total)

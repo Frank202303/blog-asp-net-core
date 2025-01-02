@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 using MyBlog.WebApi.Utility.ApiResult;
 using MyBlog.Model;
 using Microsoft.AspNetCore.Authorization;
+using SqlSugar;
+using AutoMapper;
+using MyBlog.Model.DTO;
 
 namespace MyBlog.WebApi.Controllers
 {
@@ -106,6 +109,22 @@ namespace MyBlog.WebApi.Controllers
             bool b = await _iBlogNewsService.EditAsync(blogNews);
             if (!b) return ApiResultHelper.Error(msg: "文章修改失败，服务器发生错误");
             return ApiResultHelper.Success(blogNews);
+        }
+
+        // 04 在控制器里 使用
+        [HttpGet(template:"BlogNewsPage")]
+        public async Task<ActionResult<ApiResult>> GetBlogNewsPage([FromServices] IMapper iMapper, int page, int size)
+        {
+            RefAsync<int> total = 0;
+            var blogNews = await _iBlogNewsService.QueryAsync(page, size, total);
+            try {
+                var blogNewsDTO = iMapper.Map<List<BlogNewsDTO>>(blogNews);
+                // total的值 是通过 RefAsync 传递的
+                return ApiResultHelper.Success(blogNewsDTO, total);
+            } catch (Exception) {
+                return ApiResultHelper.Error("autoMapper映射错误");
+            }
+
         }
     }
 }
